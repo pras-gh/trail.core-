@@ -74,6 +74,16 @@
   - `CI` workflow: lint + typecheck + tests
   - `Secrets Audit` workflow: verifies required GitHub environment secrets
 
+## Vercel Deployment
+
+- Web app:
+  - set Vercel Root Directory to `apps/web`
+  - framework: Next.js
+- API app (if you deploy API on Vercel):
+  - set Root Directory to `apps/api`
+  - Vercel uses `/api/index.ts` serverless handler (included in this repo)
+  - do not run the long-lived `src/main.ts` listener in Vercel serverless
+
 ## Contract Docs
 
 - Data contracts: `docs/data-contracts.md`
