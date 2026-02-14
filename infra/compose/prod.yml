@@ -1,0 +1,14 @@
+name: tail-core-prod
+
+services:
+  postgres:
+    container_name: tail-core-prod-postgres
+
+  redis:
+    container_name: tail-core-prod-redis
+
+  minio:
+    container_name: tail-core-prod-minio
+
+  minio-init:
+    container_name: tail-core-prod-minio-init

@@ -1,0 +1,18 @@
+{
+  "name": "@tail-core/ingest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node -e \"console.log('ingest tests placeholder')\""
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.6"
+  }
+}

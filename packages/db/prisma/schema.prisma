@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Source {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  kind      String
+  config    Json     @default(dbgenerated("'{}'::jsonb"))
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  syncRuns  SyncRun[]
+  rawEvents RawEvent[]
+
+  @@index([kind], map: "idx_sources_kind")
+  @@map("sources")
+}
+
+model SyncRun {
+  id         String        @id @default(uuid()) @db.Uuid
+  sourceId   String        @map("source_id") @db.Uuid
+  status     String
+  startedAt  DateTime?     @map("started_at") @db.Timestamptz(6)
+  finishedAt DateTime?     @map("finished_at") @db.Timestamptz(6)
+  stats      Json          @default(dbgenerated("'{}'::jsonb"))
+  error      Json?
+  createdAt  DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  source    Source     @relation(fields: [sourceId], references: [id])
+  rawEvents RawEvent[]
+
+  @@index([sourceId, createdAt], map: "idx_sync_runs_source")
+  @@index([status], map: "idx_sync_runs_status")
+  @@map("sync_runs")
+}
+
+model RawEvent {
+  id               String      @id @default(uuid()) @db.Uuid
+  sourceId         String      @map("source_id") @db.Uuid
+  syncRunId        String      @map("sync_run_id") @db.Uuid
+  uploadId         String?     @map("upload_id") @db.Uuid
+  rawBlobUri       String      @map("raw_blob_uri")
+  rawMimeType      String      @map("raw_mime_type")
+  rawRecordLocator String?     @map("raw_record_locator")
+  schemaVersion    Int         @default(1) @map("schema_version")
+  payload          Json
+  externalId       String?     @map("external_id")
+  contentHash      String      @map("content_hash")
+  parseStatus      String      @default("pending") @map("parse_status")
+  parseError       Json?       @map("parse_error")
+  occurredAt       DateTime?   @map("occurred_at") @db.Timestamptz(6)
+  ingestedAt       DateTime    @default(now()) @map("ingested_at") @db.Timestamptz(6)
+
+  source  Source  @relation(fields: [sourceId], references: [id])
+  syncRun SyncRun @relation(fields: [syncRunId], references: [id])
+
+  @@index([syncRunId], map: "idx_raw_events_run")
+  @@index([sourceId, ingestedAt], map: "idx_raw_events_source")
+  @@index([parseStatus], map: "idx_raw_events_parse_status")
+  @@unique([sourceId, contentHash], map: "uq_raw_events_dedupe")
+  @@map("raw_events")
+}

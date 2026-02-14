@@ -1,0 +1,27 @@
+{
+  "name": "@tail-core/web",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node -e \"console.log('web tests placeholder')\""
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^6.36.7",
+    "@sentry/nextjs": "^8.51.0",
+    "next": "15.2.3",
+    "posthog-js": "^1.197.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.14",
+    "@types/react-dom": "^18.3.1"
+  }
+}

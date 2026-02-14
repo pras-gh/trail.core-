@@ -1,0 +1,17 @@
+# Node
+node_modules/
+npm-debug.log*
+.turbo/
+.next/
+dist/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+env/*.env
+!env/*.env.example
+
+# OS/editor
+.DS_Store
+.vscode/

@@ -1,0 +1,14 @@
+name: tail-core-stage
+
+services:
+  postgres:
+    container_name: tail-core-stage-postgres
+
+  redis:
+    container_name: tail-core-stage-redis
+
+  minio:
+    container_name: tail-core-stage-minio
+
+  minio-init:
+    container_name: tail-core-stage-minio-init
