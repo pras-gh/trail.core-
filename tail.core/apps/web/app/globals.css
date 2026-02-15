@@ -1,0 +1,42 @@
+:root {
+  --bg-top: #f3f2ec;
+  --bg-bottom: #dcebe6;
+  --surface: #ffffff;
+  --surface-muted: #f8faf9;
+  --text-strong: #11231f;
+  --text-muted: #4c6660;
+  --line: #cfe0da;
+  --accent: #0f766e;
+  --accent-soft: #e3f4f1;
+  --ok: #14532d;
+  --ok-bg: #dcfce7;
+  --warn: #92400e;
+  --warn-bg: #fef3c7;
+  --bad: #7f1d1d;
+  --bad-bg: #fee2e2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-display), "Segoe UI", sans-serif;
+  color: var(--text-strong);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(15, 118, 110, 0.12), transparent 42%),
+    radial-gradient(circle at 88% 0%, rgba(190, 129, 45, 0.14), transparent 34%),
+    linear-gradient(160deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
+
+code,
+pre {
+  font-family: var(--font-mono), "Courier New", monospace;
+}
